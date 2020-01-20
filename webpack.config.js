@@ -51,7 +51,20 @@ module.exports = {
   ],
   
   output: {
-    filename: '[name].[hash].js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
+  },
+  optimization: {
+    moduleIds: 'hashed',
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   }
 };
