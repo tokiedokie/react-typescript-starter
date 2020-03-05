@@ -3,14 +3,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: "production",
-
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: [".mjs", ".js", ".jsx", ".ts", ".tsx"]
   },
 
   module: {
@@ -20,16 +18,18 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "ts-loader"
-          }
+            loader: 'ts-loader',
+          },
         ]
       },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      /*
       {
         enforce: "pre",
         test: /\.js$/,
         loader: "source-map-loader"
       }
+      */
     ]
   },
 
@@ -43,16 +43,19 @@ module.exports = {
   },
 
   plugins: [
-    // new CleanWebpackPlugin(['dist/*']) for < v2 versions of CleanWebpackPlugin
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "./index.html"
     }),
   ],
-  
+
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: "/",
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   optimization: {
     moduleIds: 'hashed',
