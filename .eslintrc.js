@@ -1,11 +1,7 @@
 module.exports = {
     "ignorePatterns": [
-        "src/graphql",
-        "src/API.ts",
-        "src/aws-exports.js",
         "jest.config.js",
         "webpack.config.js",
-        "node_modules/"
     ],
     "env": {
         "browser": true,
